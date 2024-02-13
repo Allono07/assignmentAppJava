@@ -8,6 +8,7 @@
     android:orientation="vertical">
 
     <androidx.appcompat.widget.Toolbar
+        android:id="@+id/myToolbar"
         android:background="#343BD5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
@@ -18,6 +19,7 @@
 
 
             <ImageView
+                android:id="@+id/person"
                 android:src="@drawable/person_img"
                 app:tint="@color/white"
                 android:layout_centerVertical="true"
@@ -25,16 +27,19 @@
                 android:layout_alignParentLeft="true"
                 android:layout_width="30dp"
                 android:layout_height="30dp"/>
+
             <TextView
-                android:textStyle="bold"
-                android:textSize="18sp"
-               android:textColor="@color/white"
-                android:layout_centerVertical="true"
-                android:text="EcomApp"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="EcomApp"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
             <ImageView
-                android:src="@drawable/cart_img"
+                android:id="@+id/cart"
+                android:layout_marginRight="16dp"
+                android:src="@drawable/baseline_add_shopping_cart_24"
                 app:tint="@color/white"
                 android:layout_centerVertical="true"
                 android:layout_alignParentRight="true"

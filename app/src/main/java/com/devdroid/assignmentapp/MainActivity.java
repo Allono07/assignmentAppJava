@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     public void onSuccess(AuthResult authResult) {
                         progressDialog.cancel();
                         Toast.makeText(MainActivity.this, "login Successful", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(MainActivity.this,DashboardActivity.class));
                     }
                 }).addOnFailureListener(new OnFailureListener(){
                     @Override
@@ -58,5 +59,12 @@ public class MainActivity extends AppCompatActivity {
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+    }
+
+    protected void onStart(){
+        super.onStart();
+        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+            startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+        }
     }
 }

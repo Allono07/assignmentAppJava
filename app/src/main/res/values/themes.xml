@@ -15,4 +15,18 @@
     </style>
 
     <style name="Theme.AssignmentApp" parent="Base.Theme.AssignmentApp" />
+
+    <style name="NoAction" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">#260660</item>
+        <item name="colorPrimaryVariant">#251B37</item>
+        <item name="colorOnPrimary">@color/white</item>
+
+        <item name='colorSecondary'>@color/black</item>
+        <item name='colorSecondaryVariant'>#8E1A1A</item>
+        <item name='colorOnSecondary'>#8E6565</item>
+
+        <item name ='android:statusBarColor' tools:targetApi='l'>?attr/colorPrimaryVariant</item>
+        <!-- Customize your light theme here. -->
+        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
+    </style>
 </resources>

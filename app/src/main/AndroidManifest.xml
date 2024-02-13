@@ -13,6 +13,7 @@
         android:theme="@style/Theme.AssignmentApp"
         tools:targetApi="31">
         <activity
+            android:theme="@style/NoAction"
             android:name=".DashboardActivity"
             android:exported="false" />
         <activity
