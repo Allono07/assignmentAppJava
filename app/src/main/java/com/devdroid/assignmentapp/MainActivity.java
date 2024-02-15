@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -15,14 +16,25 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 
+import org.json.JSONObject;
+
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
+import io.branch.referral.util.LinkProperties;
+import io.branch.referral.validators.IntegrationValidator;
+
+
 public class MainActivity extends AppCompatActivity {
     ActivityMainBinding binding;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //setContentView(R.layout.activity_launcher);
         binding =ActivityMainBinding.inflate(getLayoutInflater());
 
         setContentView(binding.getRoot());
+
         binding.goToSignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -62,9 +74,51 @@ public class MainActivity extends AppCompatActivity {
     }
 
     protected void onStart(){
+
         super.onStart();
+
+        Branch.enableLogging();
+        IntegrationValidator.validate(MainActivity.this);
+        Branch.sessionBuilder(this).withCallback(new Branch.BranchUniversalReferralInitListener() {
+            @Override
+            public void onInitFinished(BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
+                if (error != null) {
+                    Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
+                } else {
+                    Log.i("BranchSDK_Tester", "branch init complete!");
+                    if (branchUniversalObject != null) {
+                        Log.i("BranchSDK_Tester", "title " + branchUniversalObject.getTitle());
+                        Log.i("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.getCanonicalIdentifier());
+                        Log.i("BranchSDK_Tester", "metadata " + branchUniversalObject.getContentMetadata().convertToJson());
+                    }
+
+                    if (linkProperties != null) {
+                        Log.i("BranchSDK_Tester", "Channel " + linkProperties.getChannel());
+                        Log.i("BranchSDK_Tester", "control params " + linkProperties.getControlParams());
+                    }
+                }
+            }
+        }).withData(this.getIntent().getData()).init();
+
         if(FirebaseAuth.getInstance().getCurrentUser()!=null){
             startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+        }
+    }
+
+    public void onNewIntent(Intent intent) {
+        super.onNewIntent(intent);
+        this.setIntent(intent);
+        if (intent != null && intent.hasExtra("branch_force_new_session") && intent.getBooleanExtra("branch_force_new_session",false)) {
+            Branch.sessionBuilder(this).withCallback(new Branch.BranchReferralInitListener() {
+                @Override
+                public void onInitFinished(JSONObject referringParams, BranchError error) {
+                    if (error != null) {
+                        Log.e("BranchSDK_Tester", error.getMessage());
+                    } else if (referringParams != null) {
+                        Log.i("BranchSDK_Tester", referringParams.toString());
+                    }
+                }
+            }).reInit();
         }
     }
 }

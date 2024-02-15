@@ -1,6 +1,7 @@
 package com.devdroid.assignmentapp;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,10 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
         this.context = context;
         productModelList = new ArrayList<>();
     }
-
+    public void addProduct(ProductModel productModel){
+        productModelList.add(productModel);
+        notifyDataSetChanged();
+    }
     @NonNull
     @Override
     public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,6 +45,14 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
 
         Glide.with(context).load(productModel.getImage())
                 .into(holder.img);
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(context,DetailActivity.class);
+                intent.putExtra("model",productModel);
+                context.startActivity(intent);
+            }
+        });
 
 
     }
