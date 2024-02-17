@@ -66,7 +66,7 @@ public class OrderPlacingActivity extends AppCompatActivity {
                     .set(cartModel);
 
         }
-        BranchUniversalObject buo = new BranchUniversalObject()
+        BranchUniversalObject buo = new BranchUniversalObject();
                 new ContentMetadata();
             //    .setAddress(address);
         new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
