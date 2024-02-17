@@ -9,7 +9,7 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbar"
-        android:background="#343BD5"
+        android:background="#080D78"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <RelativeLayout

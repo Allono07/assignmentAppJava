@@ -25,7 +25,7 @@
         android:id="@+id/price"
         android:text="550"
         android:textStyle="bold"
-        android:textColor="#326BDD"
+        android:textColor="#080D78"
         android:textSize="24sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -61,7 +61,7 @@
             android:layout_gravity="center"
             android:layout_weight="1"
             android:layout_margin="10dp"
-            android:background="#326BDD"
+            android:background="#080D78"
             android:layout_width="100dp"
             android:layout_height="match_parent">
             <TextView

@@ -1,6 +1,7 @@
 package com.devdroid.assignmentapp;
 
 import androidx.appcompat.app.AppCompatActivity;
+/// Each Products page
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -61,7 +62,7 @@ private ProductModel productModel;
 
     }
 
-    private void showBottomSheet() {
+    private void showBottomSheet() { ///When Clicked Addto Cart, the bottom sheet will pop to enter the qunatity
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view= LayoutInflater.from(DetailActivity.this).inflate(R.layout.bottom_layout,(LinearLayout)findViewById(R.id.mainLayout),
                false)
@@ -81,14 +82,14 @@ private ProductModel productModel;
         });
     }
 
-    private void addToCart(String qty) {
+    private void addToCart(String qty) { //addTo Cart Event and also logging event to branch
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Adding");
         progressDialog.setMessage("Item in Cart");
         progressDialog.show();
 
         String id = UUID.randomUUID().toString();
-        CartModel cartModel = new CartModel(id, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),qty, FirebaseAuth.getInstance().getUid());
+        CartModel cartModel = new CartModel(id, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),qty, FirebaseAuth.getInstance().getUid(),null);
         double doubleValue = Double.parseDouble(productModel.getPrice());
 
         FirebaseFirestore.getInstance()

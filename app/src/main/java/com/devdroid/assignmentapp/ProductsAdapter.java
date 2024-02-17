@@ -1,5 +1,5 @@
 package com.devdroid.assignmentapp;
-
+// This class fetches the products data from the Firebase; this is like connector
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;

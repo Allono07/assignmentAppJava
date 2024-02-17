@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.firestore.*;
 
+import android.content.Intent;
 import android.hardware.lights.LightsManager;
 import android.os.Bundle;
 import android.view.View;
@@ -36,6 +37,7 @@ public class DashboardActivity extends AppCompatActivity {
     binding.cart.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+            startActivity(new Intent(DashboardActivity.this, CartActivity.class));
 
         }
     });

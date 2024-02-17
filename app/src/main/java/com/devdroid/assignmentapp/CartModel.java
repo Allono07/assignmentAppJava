@@ -8,17 +8,22 @@ public class CartModel {
     private String productPrice;
     private String productQty;
     private String sellerUid;
+    public boolean is_selected;
+
+    private String orderNumber;
 
     public CartModel() {
     }
 
-    public CartModel(String cartId, String productName, String productImage,String productPrice, String productQty, String sellerUid) {
+    public CartModel(String cartId, String productName, String productImage, String productPrice, String productQty, String sellerUid,String orderNumber) {
         this.cartId = cartId;
         this.productName = productName;
         this.productImage = productImage;
         this.productPrice = productPrice;
         this.productQty = productQty;
         this.sellerUid = sellerUid;
+        this.is_selected = is_selected;
+        this.orderNumber = orderNumber;
     }
 
     public String getCartId() {
@@ -51,6 +56,22 @@ public class CartModel {
 
     public void setProductQty(String productQty) {
         this.productQty = productQty;
+    }
+
+    public boolean isIs_selected() {
+        return is_selected;
+    }
+
+    public void setIs_selected(boolean is_selected) {
+        this.is_selected = is_selected;
+    }
+
+    public String getOrderNumber() {
+        return orderNumber;
+    }
+
+    public void setOrderNumber(String orderNumber) {
+        this.orderNumber = orderNumber;
     }
 
     public String getSellerUid() {
