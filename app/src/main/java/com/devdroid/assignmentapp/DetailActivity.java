@@ -23,6 +23,11 @@ import org.checkerframework.checker.units.qual.C;
 
 import java.util.UUID;
 
+import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.util.BRANCH_STANDARD_EVENT;
+import io.branch.referral.util.BranchEvent;
+import io.branch.referral.util.CurrencyType;
+
 public class DetailActivity extends AppCompatActivity {
 ActivityDetailBinding binding;
 private ProductModel productModel;
@@ -32,6 +37,8 @@ private ProductModel productModel;
         super.onCreate(savedInstanceState);
         binding=ActivityDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        BranchUniversalObject buo = new BranchUniversalObject();
+
         Intent intent =getIntent();
 
          productModel = (ProductModel)  intent.getSerializableExtra("model");
@@ -67,6 +74,7 @@ private ProductModel productModel;
             public void onClick(View view) {
                 String quantity = qty.getText().toString();
                 addToCart(quantity);
+
                 bottomSheetDialog.cancel();
 
             }
@@ -81,10 +89,26 @@ private ProductModel productModel;
 
         String id = UUID.randomUUID().toString();
         CartModel cartModel = new CartModel(id, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),qty, FirebaseAuth.getInstance().getUid());
+        double doubleValue = Double.parseDouble(productModel.getPrice());
+
         FirebaseFirestore.getInstance()
                 .collection("cart")
                 .document(id)
-                .set(cartModel);
-        Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                .set(cartModel)
+                .addOnCompleteListener(task ->{
+                    progressDialog.dismiss();
+                    if (task.isSuccessful()){
+                        new BranchEvent(BRANCH_STANDARD_EVENT.ADD_TO_CART)
+                                .setCurrency(CurrencyType.INR)
+                                .setDescription(productModel.getDescription())
+                                .setRevenue(doubleValue)
+                                .logEvent(getApplicationContext());
+                        Toast.makeText(this, "Added to Cart", Toast.LENGTH_SHORT).show();
+                    }
+                    else{
+                    }                    Toast.makeText(this, "Failed to add to cart", Toast.LENGTH_SHORT).show();
+                });
+
+
     }
 }
