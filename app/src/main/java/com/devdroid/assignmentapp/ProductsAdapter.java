@@ -54,9 +54,7 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
             }
         });
 
-
     }
-
     @Override
     public int getItemCount() {
         return productModelList.size();
@@ -71,8 +69,6 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
             desc=itemView.findViewById(R.id.description);
             price=itemView.findViewById(R.id.price);
             img=itemView.findViewById(R.id.image);
-
-
         }
     }
 }

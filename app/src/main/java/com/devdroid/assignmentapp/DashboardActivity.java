@@ -42,6 +42,14 @@ public class DashboardActivity extends AppCompatActivity {
         }
     });
 
+        binding.cart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
+
+            }
+        });
+
     }
 
     private void getProducts() {

@@ -12,11 +12,12 @@ public class OrderModel {
     private String courier;
     private String orderPlacingDate;
     private String orderStatus;
+    private String uid;
 
     public OrderModel() {
     }
 
-    public OrderModel(String orderNumber, String customerName, String customerNumber, String customerAddress, String customerCityName, String itemExpense, String deliveryCharges, String orderTrackingNumber, String courier, String orderPlacingDate, String orderStatus) {
+    public OrderModel(String orderNumber, String customerName, String customerNumber, String customerAddress, String customerCityName, String itemExpense, String deliveryCharges, String orderTrackingNumber, String courier, String orderPlacingDate, String orderStatus, String uid) {
         this.orderNumber = orderNumber;
         this.customerName = customerName;
         this.customerNumber = customerNumber;
@@ -28,6 +29,7 @@ public class OrderModel {
         this.courier = courier;
         this.orderPlacingDate = orderPlacingDate;
         this.orderStatus = orderStatus;
+        this.uid = uid;
     }
 
     public String getOrderNumber() {
@@ -44,6 +46,14 @@ public class OrderModel {
 
     public void setCustomerName(String customerName) {
         this.customerName = customerName;
+    }
+
+    public String getUid() {
+        return uid;
+    }
+
+    public void setUid(String uid) {
+        this.uid = uid;
     }
 
     public String getCustomerNumber() {

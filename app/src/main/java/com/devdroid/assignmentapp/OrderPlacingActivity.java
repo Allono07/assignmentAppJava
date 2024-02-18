@@ -4,11 +4,14 @@ import static com.devdroid.assignmentapp.CartActivity.cartsItemList;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 
 import com.devdroid.assignmentapp.databinding.ActivityOrderPlacingBinding;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.Calendar;
@@ -31,6 +34,8 @@ public class OrderPlacingActivity extends AppCompatActivity {
         binding=ActivityOrderPlacingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        binding.name.setText(FirebaseAuth.getInstance().getCurrentUser().getDisplayName());
+
         binding.placeOrder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,36 +52,46 @@ public class OrderPlacingActivity extends AppCompatActivity {
     private void placeOrder() {
         //123456
         //100000 999999
+        ProgressDialog progressDialog = new ProgressDialog(this);
+        progressDialog.setTitle("Placing");
+        progressDialog.setMessage("Your Order");
+        progressDialog.show();
         String orderNumber = String.valueOf(getRandomNumber(100000,999999));
         OrderModel orderModel = new OrderModel(orderNumber
         ,name,number,cityName, address, String.valueOf(mainTotal),"220",null,
-                "TCS",String.valueOf(Calendar.getInstance().getTimeInMillis()),"Pending");
+                "TCS",String.valueOf(Calendar.getInstance().getTimeInMillis()),"Pending",FirebaseAuth.getInstance().getUid());
         FirebaseFirestore.getInstance().collection("orders")
                 .document(orderNumber)
-                .set(orderModel);
-        for(int i=0;i<cartsItemList.size();i++){
-            CartModel cartModel =cartsItemList.get(i);
-            cartModel.setOrderNumber(orderNumber);
-            String id = UUID.randomUUID().toString();
-            cartModel.setCartId(id);
+                .set(orderModel)
+                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void unused) {
+                        for(int i=0;i<cartsItemList.size();i++){
+                            CartModel cartModel =cartsItemList.get(i);
+                            cartModel.setOrderNumber(orderNumber);
+                            String id = UUID.randomUUID().toString();
+                            cartModel.setCartId(id);
 
-            FirebaseFirestore.getInstance()
-                    .collection("orderProducts")
-                    .document()
-                    .set(cartModel);
-
-        }
-        BranchUniversalObject buo = new BranchUniversalObject();
-                new ContentMetadata();
-            //    .setAddress(address);
-        new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
-                .setCurrency(CurrencyType.INR)
-                .setDescription("item purchased by the customer")
-                .setRevenue(mainTotal)
-                .logEvent(getApplicationContext());
-        Toast.makeText(this, "Item Purchased", Toast.LENGTH_SHORT).show();
+                            FirebaseFirestore.getInstance()
+                                    .collection("orderProducts")
+                                    .document()
+                                    .set(cartModel);
+                        }
+                        BranchUniversalObject buo = new BranchUniversalObject();
+                        new ContentMetadata();
+                        //    .setAddress(address);
+                        new BranchEvent(BRANCH_STANDARD_EVENT.PURCHASE)
+                                .setCurrency(CurrencyType.INR)
+                                .setDescription("item purchased by the customer")
+                                .setRevenue(mainTotal)
+                                .logEvent(getApplicationContext());
+                        finish();
+                        progressDialog.cancel();
+                    }
+                });
 
     }
+
     public static  int getRandomNumber(int min, int max){
         return (new Random()).nextInt((max-min)+1)+min;
     }
@@ -95,4 +110,5 @@ public class OrderPlacingActivity extends AppCompatActivity {
         binding.delivery.setText("220");
         binding.totalCod.setText(String.valueOf((mainTotal+220)));
     }
+
 }

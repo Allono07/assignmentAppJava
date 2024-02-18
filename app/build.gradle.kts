@@ -39,6 +39,8 @@ android {
 dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("io.branch.sdk.android:library:5+")
+    implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation ("com.android.installreferrer:installreferrer:2.2")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
     implementation ("store.galaxy.samsung.installreferrer:samsung_galaxystore_install_referrer:4.0.0")
 
