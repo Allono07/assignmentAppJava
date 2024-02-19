@@ -1,5 +1,7 @@
 package com.devdroid.assignmentapp;
 
+import static com.devdroid.assignmentapp.CartActivity.cartsItemList;
+
 import androidx.appcompat.app.AppCompatActivity;
 /// Each Products page
 
@@ -22,12 +24,16 @@ import com.google.firebase.firestore.FirebaseFirestore;
 
 import org.checkerframework.checker.units.qual.C;
 
+import java.util.ArrayList;
 import java.util.UUID;
+import com.devdroid.assignmentapp.CartActivity.*;
 
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.util.BRANCH_STANDARD_EVENT;
 import io.branch.referral.util.BranchEvent;
 import io.branch.referral.util.CurrencyType;
+
+
 
 public class DetailActivity extends AppCompatActivity {
 ActivityDetailBinding binding;
@@ -54,15 +60,21 @@ private ProductModel productModel;
     binding.addTocart.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-            showBottomSheet();
+            showBottomSheet(0);
        //     addToCart();
         }
     });
-
+binding.buyNow.setOnClickListener(new View.OnClickListener() {
+    @Override
+    public void onClick(View view) {
+        showBottomSheet(1);
+        //CartModel cartModel = new CartModel(null,productModel.getTitle(),productModel.getImage(),productModel.getPrice(),productModel.getPrice(), pro)
+    }
+});
 
     }
 
-    private void showBottomSheet() { ///When Clicked Addto Cart, the bottom sheet will pop to enter the qunatity
+    private void showBottomSheet(int i) { ///When Clicked Addto Cart, the bottom sheet will pop to enter the qunatity
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(this);
         View view= LayoutInflater.from(DetailActivity.this).inflate(R.layout.bottom_layout,(LinearLayout)findViewById(R.id.mainLayout),
                false)
@@ -74,9 +86,23 @@ private ProductModel productModel;
             @Override
             public void onClick(View view) {
                 String quantity = qty.getText().toString();
-                addToCart(quantity);
 
-                bottomSheetDialog.cancel();
+                if(i==0){
+                    //Add to Cart
+                    addToCart(quantity);
+
+                    bottomSheetDialog.cancel();
+                }
+
+                else if(i==1){
+                CartModel cartModel = new CartModel(null, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),quantity,FirebaseAuth.getInstance().getUid(), null);
+                     cartsItemList = new ArrayList<>();
+                     cartsItemList.add(cartModel);
+                     startActivity(new Intent(DetailActivity.this,OrderPlacingActivity.class));
+                     bottomSheetDialog.cancel();
+
+                }
+
 
             }
         });

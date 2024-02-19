@@ -50,9 +50,9 @@ public class CartActivity extends AppCompatActivity {
             }
         });
         // ATTENTION: This was auto-generated to handle app links.
-        Intent appLinkIntent = getIntent();
-        String appLinkAction = appLinkIntent.getAction();
-        Uri appLinkData = appLinkIntent.getData();
+//        Intent appLinkIntent = getIntent();
+//        String appLinkAction = appLinkIntent.getAction();
+//        Uri appLinkData = appLinkIntent.getData();
     }
 
     private void getCartItem() {

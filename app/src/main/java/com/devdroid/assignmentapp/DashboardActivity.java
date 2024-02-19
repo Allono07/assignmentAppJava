@@ -25,7 +25,7 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
-
+        EventAPIProfileActivity eventAPI = new EventAPIProfileActivity();
         setContentView(binding.getRoot());
         setSupportActionBar(binding.myToolbar);
         productsAdapter = new ProductsAdapter(this);
@@ -42,9 +42,10 @@ public class DashboardActivity extends AppCompatActivity {
         }
     });
 
-        binding.cart.setOnClickListener(new View.OnClickListener() {
+        binding.person.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                eventAPI.makeApiCall();
                 startActivity(new Intent(DashboardActivity.this, ProfileActivity.class));
 
             }
