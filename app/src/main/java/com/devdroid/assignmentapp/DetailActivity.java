@@ -25,13 +25,21 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import org.checkerframework.checker.units.qual.C;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 import com.devdroid.assignmentapp.CartActivity.*;
 
 import io.branch.indexing.BranchUniversalObject;
+import io.branch.referral.Branch;
+import io.branch.referral.BranchError;
 import io.branch.referral.util.BRANCH_STANDARD_EVENT;
 import io.branch.referral.util.BranchEvent;
 import io.branch.referral.util.CurrencyType;
+import io.branch.referral.util.LinkProperties;
+import io.branch.referral.*;
+import io.branch.referral.util.ShareSheetStyle;
+import io.branch.referral.SharingHelper;
+import io.branch.referral.BranchShareSheetBuilder;
 
 
 
@@ -56,7 +64,37 @@ private ProductModel productModel;
         Glide.with(binding.getRoot())
                 .load(productModel.getImage())
                 .into(binding.image);
+    binding.share.setOnClickListener(new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
 
+        }
+    });
+//        private void  shareBranchLink(){
+//            // Create a Branch Universal Object
+//            BranchUniversalObject buo1 = new BranchUniversalObject()
+//                    .setCanonicalIdentifier("content/12345");
+//
+//            // Create a Link Properties instance
+//            LinkProperties lp = new LinkProperties()
+//                    .setChannel("facebook")
+//                    .setFeature("sharing")
+//                    .setCampaign("content 123 launch")
+//                    .setStage("new user")
+//                    .addControlParameter("$desktop_url", "https://example.com/home")
+//                    .addControlParameter("custom", "data")
+//                    .addControlParameter("custom_random", Long.toString(Calendar.getInstance().getTimeInMillis()));
+//
+//            // Show Sharesheet
+//            Branch.getInstance().share(MainActivity.this, buo1, lp, new Branch.BranchNativeLinkShareListener() {
+//                        @Override
+//                        public void onLinkShareResponse(String sharedLink, BranchError error) {}
+//                        @Override
+//                        public void onChannelSelected(String channelName) { }
+//                    },
+//                    "Sharing Branch Short URL",
+//                    "Using Native Chooser Dialog");
+//        }
     binding.addTocart.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
