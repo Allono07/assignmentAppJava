@@ -37,7 +37,7 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) { //bind data to each item in the RecyclerView
         ProductModel productModel =productModelList.get(position);
         holder.title.setText(productModel.getTitle());
         holder.desc.setText(productModel.getDescription());
@@ -60,7 +60,7 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
         return productModelList.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder{ //to hold references to the views in each item
         private TextView title,desc,price;
         private ImageView img;
         public MyViewHolder(@NonNull View itemView) {

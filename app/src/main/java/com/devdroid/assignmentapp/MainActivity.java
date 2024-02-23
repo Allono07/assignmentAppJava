@@ -125,6 +125,13 @@ public class MainActivity extends AppCompatActivity {
 
                     }
                 }
+                if ((branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("productModel"))){
+                    System.out.println("productModelClicked");
+                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                    startActivity(intent);
+                    System.out.println("navigatedToproduct");
+                    finish();
+                }
 
                 if (error != null) {
                     Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());

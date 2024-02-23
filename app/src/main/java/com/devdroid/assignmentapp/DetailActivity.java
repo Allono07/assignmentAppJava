@@ -67,7 +67,14 @@ private ProductModel productModel;
     binding.share.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
-
+//            Intent sendIntent = new Intent();
+//            sendIntent.setAction(Intent.ACTION_SEND);
+//            sendIntent.putExtra(Intent.EXTRA_TEXT, "This is my text to send.");
+//            sendIntent.setType("text/plain");
+//
+//            Intent shareIntent = Intent.createChooser(sendIntent, null);
+//            startActivity(shareIntent);
+            share();
         }
     });
 //        private void  shareBranchLink(){
@@ -95,6 +102,8 @@ private ProductModel productModel;
 //                    "Sharing Branch Short URL",
 //                    "Using Native Chooser Dialog");
 //        }
+
+
     binding.addTocart.setOnClickListener(new View.OnClickListener() {
         @Override
         public void onClick(View view) {
@@ -145,7 +154,50 @@ binding.buyNow.setOnClickListener(new View.OnClickListener() {
             }
         });
     }
+    public void share(){
+        // Create a Branch Universal Object
+        BranchUniversalObject buo1 = new BranchUniversalObject()
+                .setCanonicalIdentifier("content/12345");
 
+// Create a Link Properties instance
+        LinkProperties lp = new LinkProperties()
+                .setChannel("facebook")
+                .setFeature("sharing")
+                .setCampaign("content 123 launch")
+                .setStage("new user")
+                .addControlParameter("$desktop_url", "https://example.com/home")
+                .addControlParameter("productModel", "1")
+                .addControlParameter("custom_random", Long.toString(Calendar.getInstance().getTimeInMillis()));
+
+// Create an object to store Sharesheet styles
+        ShareSheetStyle shareSheetStyle = new ShareSheetStyle(DetailActivity.this, "Check this out!", "This stuff is awesome: ")
+                .setCopyUrlStyle(getResources().getDrawable(android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+                .setMoreOptionStyle(getResources().getDrawable(android.R.drawable.ic_menu_search), "Show more")
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+                .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+                .setAsFullWidthStyle(true)
+                .setSharingTitle("Share With");
+
+// Show Sharesheet based on user behavior
+        buo1.showShareSheet(this,lp,shareSheetStyle,new Branch.ExtendedBranchLinkShareListener() {
+            @Override
+            public void onShareLinkDialogLaunched() {
+            }
+            @Override
+            public void onShareLinkDialogDismissed() {
+            }
+            @Override
+            public void onLinkShareResponse(String sharedLink, String sharedChannel, BranchError error) {
+            }
+            @Override
+            public void onChannelSelected(String channelName) {
+            }
+            @Override
+            public boolean onChannelSelected(String channelName, BranchUniversalObject buo, LinkProperties linkProperties) {
+                return false;
+            }
+        });
+    }
     private void addToCart(String qty) { //addTo Cart Event and also logging event to branch
         ProgressDialog progressDialog = new ProgressDialog(this);
         progressDialog.setTitle("Adding");
