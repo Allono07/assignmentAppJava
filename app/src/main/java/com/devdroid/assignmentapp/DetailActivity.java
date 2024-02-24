@@ -114,6 +114,9 @@ private ProductModel productModel;
 binding.buyNow.setOnClickListener(new View.OnClickListener() {
     @Override
     public void onClick(View view) {
+        new BranchEvent("Buy Now")
+                .logEvent(getApplicationContext());
+        Toast.makeText(getApplicationContext(), "Buy Noe Button Clicked", Toast.LENGTH_SHORT).show();
         showBottomSheet(1);
         //CartModel cartModel = new CartModel(null,productModel.getTitle(),productModel.getImage(),productModel.getPrice(),productModel.getPrice(), pro)
     }
@@ -142,7 +145,7 @@ binding.buyNow.setOnClickListener(new View.OnClickListener() {
                 }
 
                 else if(i==1){
-                CartModel cartModel = new CartModel(null, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),quantity,FirebaseAuth.getInstance().getUid(), null);
+                CartModel cartModel = new CartModel(null, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),quantity,FirebaseAuth.getInstance().getUid(),productModel.getDescription(), null);
                      cartsItemList = new ArrayList<>();
                      cartsItemList.add(cartModel);
                      startActivity(new Intent(DetailActivity.this,OrderPlacingActivity.class));
@@ -205,7 +208,7 @@ binding.buyNow.setOnClickListener(new View.OnClickListener() {
         progressDialog.show();
 
         String id = UUID.randomUUID().toString();
-        CartModel cartModel = new CartModel(id, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),qty, FirebaseAuth.getInstance().getUid(),null);
+        CartModel cartModel = new CartModel(id, productModel.getTitle(),productModel.getImage(),productModel.getPrice(),qty, FirebaseAuth.getInstance().getUid(),productModel.getDescription(),null);
         double doubleValue = Double.parseDouble(productModel.getPrice());
 
         FirebaseFirestore.getInstance()

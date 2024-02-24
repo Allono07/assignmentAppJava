@@ -8,6 +8,9 @@ public class CartModel {
     private String productPrice;
     private String productQty;
     private String sellerUid;
+
+
+    private String description;
     public boolean is_selected;
 
     private String orderNumber;
@@ -15,7 +18,7 @@ public class CartModel {
     public CartModel() {
     }
 
-    public CartModel(String cartId, String productName, String productImage, String productPrice, String productQty, String sellerUid,String orderNumber) {
+    public CartModel(String cartId, String productName, String productImage, String productPrice, String productQty, String sellerUid,String orderNumber,String description) {
         this.cartId = cartId;
         this.productName = productName;
         this.productImage = productImage;
@@ -24,8 +27,16 @@ public class CartModel {
         this.sellerUid = sellerUid;
         this.is_selected = is_selected;
         this.orderNumber = orderNumber;
+        this.description =description;
     }
 
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
     public String getCartId() {
         return cartId;
     }

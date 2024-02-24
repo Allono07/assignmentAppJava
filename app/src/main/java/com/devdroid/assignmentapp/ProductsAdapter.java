@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -17,8 +18,14 @@ import com.bumptech.glide.Glide;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.branch.referral.util.BRANCH_STANDARD_EVENT;
+import io.branch.referral.util.BranchEvent;
+import io.branch.referral.util.CurrencyType;
+
 public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyViewHolder>{
    private Context context;
+    private Context mContext;
+
     private List<ProductModel> productModelList;
 
     public ProductsAdapter(Context context) {
@@ -48,9 +55,14 @@ public class ProductsAdapter extends  RecyclerView.Adapter<ProductsAdapter.MyVie
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                new BranchEvent("item clicked")
+                        .logEvent(context.getApplicationContext());
+                Toast.makeText(context, "item clicked", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(context,DetailActivity.class);
                 intent.putExtra("model",productModel);
                 context.startActivity(intent);
+
+
             }
         });
 

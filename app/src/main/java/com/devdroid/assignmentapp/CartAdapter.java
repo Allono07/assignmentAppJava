@@ -20,6 +20,7 @@ import java.util.List;
 public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.MyViewHolder>{
    private Context context;
     private List<CartModel> productModelList;
+    private List<ProductModel> productModelList1;
 
     public CartAdapter(Context context) {
         this.context = context;
@@ -51,6 +52,8 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.MyViewHolder>
         holder.title.setText(productModel.getProductName());
         holder.price.setText(productModel.getProductPrice());
         holder.qty.setText(productModel.getProductQty());
+        holder.description.setText(productModel.getDescription());
+
 
         Glide.with(context).load(productModel.getProductImage())
                 .into(holder.img);
@@ -76,13 +79,14 @@ public class CartAdapter extends  RecyclerView.Adapter<CartAdapter.MyViewHolder>
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder{
-        private TextView title,qty,price;
+        private TextView title,qty,price,description;
         private ImageView img;
         private LinearLayout main;
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
             title=itemView.findViewById(R.id.title);
-            qty=itemView.findViewById(R.id.description);
+            qty=itemView.findViewById(R.id.qty);
+         description=itemView.findViewById(R.id.description);
             price=itemView.findViewById(R.id.price);
             img=itemView.findViewById(R.id.image);
             main =itemView.findViewById(R.id.mainLayout);

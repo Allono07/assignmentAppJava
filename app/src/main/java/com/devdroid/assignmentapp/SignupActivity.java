@@ -58,6 +58,8 @@ public class SignupActivity extends AppCompatActivity {
                 binding.name.setText("");
                 binding.email.setText("");
                 binding.password.setText("");
+                startActivity(new Intent(SignupActivity.this,DashboardActivity.class));
+                finish();
             }
         })
                 .addOnFailureListener(new OnFailureListener() {

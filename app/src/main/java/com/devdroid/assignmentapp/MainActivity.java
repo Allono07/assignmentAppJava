@@ -82,7 +82,8 @@ public class MainActivity extends AppCompatActivity {
         super.onStart();
 //        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
 //            startActivity(new Intent(MainActivity.this,DashboardActivity.class));
-//        }
+//        }c
+
   Branch.enableLogging();
 //        IntegrationValidator.validate(MainActivity.this);
 //        BranchUniversalObject buo = new BranchUniversalObject()
@@ -103,51 +104,59 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onInitFinished(BranchUniversalObject branchUniversalObject, LinkProperties linkProperties, BranchError error) {
                 System.out.println("this is called");
-                if ((branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("androidOnly"))) {
-                    if(FirebaseAuth.getInstance().getCurrentUser()!=null){
-            startActivity(new Intent(MainActivity.this,DashboardActivity.class));
-                        System.out.println("successcall");
-                        String deeplinkPath = branchUniversalObject.getContentMetadata().getCustomMetadata().get("androidOnly");
-                        if (deeplinkPath.equals("cartActivity")) {
-                            Intent intent = new Intent(MainActivity.this, CartActivity.class);
-                            startActivity(intent);
-                            System.out.println("navigatedTocart");
-                            finish();
-                        } else if (deeplinkPath.equals("profileActivity")) {
-                            Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                            startActivity(intent);
-                            System.out.println("navigatedToprofile");
-                            finish();
+
+                try{
+                    if ((branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("androidOnly"))) {
+                        if(FirebaseAuth.getInstance().getCurrentUser()!=null){
+                            startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+                            System.out.println("successcall");
+                            String deeplinkPath = branchUniversalObject.getContentMetadata().getCustomMetadata().get("androidOnly");
+                            if (deeplinkPath.equals("cartActivity")) {
+                                Intent intent = new Intent(MainActivity.this, CartActivity.class);
+                                startActivity(intent);
+                                System.out.println("navigatedTocart");
+                                finish();
+                            } else if (deeplinkPath.equals("profileActivity")) {
+                                Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                                startActivity(intent);
+                                System.out.println("navigatedToprofile");
+                                finish();
+                            }
                         }
-        }
-                    else {
-                        Toast.makeText(MainActivity.this, "Please Login to Continue", Toast.LENGTH_SHORT).show();
+                        else {
+                            Toast.makeText(MainActivity.this, "Please Login to Continue", Toast.LENGTH_SHORT).show();
 
+                        }
                     }
-                }
-                if ((branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("productModel"))){
-                    System.out.println("productModelClicked");
-                    Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
-                    startActivity(intent);
-                    System.out.println("navigatedToproduct");
-                    finish();
+                    if (error != null) {
+                        Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
+                    } else {
+                        Log.i("BranchSDK_Tester", "branch init complete!");
+                        if (branchUniversalObject != null) {
+                            Log.i("BranchSDK_Tester", "title " + branchUniversalObject.getTitle());
+                            Log.i("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.getCanonicalIdentifier());
+                            Log.i("BranchSDK_Tester", "metadata " + branchUniversalObject.getContentMetadata().convertToJson());
+                        }
+
+                        if (linkProperties != null) {
+                            Log.i("BranchSDK_Tester", "Channel " + linkProperties.getChannel());
+                            Log.i("BranchSDK_Tester", "control params " + linkProperties.getControlParams());
+                        }
+                    }
+                    if ((branchUniversalObject.getContentMetadata().getCustomMetadata().containsKey("productModel"))){
+                        System.out.println("productModelClicked");
+                        Intent intent = new Intent(MainActivity.this, ProfileActivity.class);
+                        startActivity(intent);
+                        System.out.println("navigatedToproduct");
+                        finish();
+                    }
+                }catch (Exception e){
+                    System.out.println("empty branch object");
                 }
 
-                if (error != null) {
-                    Log.e("BranchSDK_Tester", "branch init failed. Caused by -" + error.getMessage());
-                } else {
-                    Log.i("BranchSDK_Tester", "branch init complete!");
-                    if (branchUniversalObject != null) {
-                        Log.i("BranchSDK_Tester", "title " + branchUniversalObject.getTitle());
-                        Log.i("BranchSDK_Tester", "CanonicalIdentifier " + branchUniversalObject.getCanonicalIdentifier());
-                        Log.i("BranchSDK_Tester", "metadata " + branchUniversalObject.getContentMetadata().convertToJson());
-                    }
 
-                    if (linkProperties != null) {
-                        Log.i("BranchSDK_Tester", "Channel " + linkProperties.getChannel());
-                        Log.i("BranchSDK_Tester", "control params " + linkProperties.getControlParams());
-                    }
-                }
+
+
 
             }
         }).withData(this.getIntent().getData()).init();
