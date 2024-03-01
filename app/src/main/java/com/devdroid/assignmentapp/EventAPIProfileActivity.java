@@ -14,17 +14,17 @@ public class EventAPIProfileActivity {
             @Override
             public void run() {
                 try {
-                    // Create URL
+
                     URL url = new URL("https://api2.branch.io/v2/event/custom");
 
-                    // Create connection
+
                     HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                     connection.setRequestMethod("POST");
                     connection.setRequestProperty("Content-Type", "application/json");
                     connection.setRequestProperty("Accept", "application/json");
                     connection.setDoOutput(true);
 
-                    // Create request body
+
                     String requestBody = "{\n" +
                             "  \"name\": \"profile_clicked\",\n" +
                             "  \"customer_event_alias\": \"my custom alias\",\n" +

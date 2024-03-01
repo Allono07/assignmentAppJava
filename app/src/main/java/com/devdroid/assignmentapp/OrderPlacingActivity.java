@@ -43,7 +43,10 @@ public class OrderPlacingActivity extends AppCompatActivity {
                 address=binding.address.getText().toString();
                 cityName=binding.cityName.getText().toString();
                 number=binding.number.getText().toString();
-                placeOrder();
+               
+                    placeOrder();
+
+
             }
         });
 
@@ -68,6 +71,7 @@ public class OrderPlacingActivity extends AppCompatActivity {
                     public void onSuccess(Void unused) {
                         for(int i=0;i<cartsItemList.size();i++){
                             CartModel cartModel =cartsItemList.get(i);
+                            CartModel cm = new CartModel();
                             cartModel.setOrderNumber(orderNumber);
                             String id = UUID.randomUUID().toString();
                             cartModel.setCartId(id);
@@ -76,6 +80,7 @@ public class OrderPlacingActivity extends AppCompatActivity {
                                     .collection("orderProducts")
                                     .document()
                                     .set(cartModel);
+
                         }
                         BranchUniversalObject buo = new BranchUniversalObject();
                         new ContentMetadata();
@@ -85,7 +90,10 @@ public class OrderPlacingActivity extends AppCompatActivity {
                                 .setDescription("item purchased by the customer")
                                 .setRevenue(mainTotal)
                                 .logEvent(getApplicationContext());
+
+
                         finish();
+
                         progressDialog.cancel();
                     }
                 });
