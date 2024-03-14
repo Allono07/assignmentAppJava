@@ -52,5 +52,9 @@
         android:id="@+id/productRecyler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
-
+    <com.webengage.personalization.WEInlineView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:shouldCache="false"
+        android:id="@+id/sad1"/>
 </LinearLayout>

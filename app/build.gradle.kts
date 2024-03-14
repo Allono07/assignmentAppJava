@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId = "com.devdroid.assignmentapp"
-        minSdk = 31
+        minSdk = 28
         targetSdk = 34
         versionCode = 1
         versionName = "1.0"
@@ -47,6 +47,8 @@ dependencies {
 
     // Required if your app is in the Google Play Store (tip: avoid using bundled play services libs):
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
+    implementation ("com.webengage:we-personalization:1.1.3")
+
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")

@@ -12,6 +12,8 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.devdroid.assignmentapp.databinding.ActivityDashboardBinding;
+import com.webengage.personalization.WEPersonalization;
+import com.webengage.sdk.android.WebEngage;
 
 import org.w3c.dom.Document;
 
@@ -25,6 +27,8 @@ public class DashboardActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityDashboardBinding.inflate(getLayoutInflater());
+        WebEngage.get().analytics().screenNavigated("dashboard_screen");
+       // WEPersonalization.Companion.get().registerWEPlaceholderCallback("placeholder_identifier", this);
         EventAPIProfileActivity eventAPI = new EventAPIProfileActivity();
         setContentView(binding.getRoot());
         setSupportActionBar(binding.myToolbar);
