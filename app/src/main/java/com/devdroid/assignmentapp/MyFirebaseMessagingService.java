@@ -3,6 +3,8 @@ package com.devdroid.assignmentapp;
 import android.content.Intent;
 
 import androidx.annotation.NonNull;
+import androidx.core.app.NotificationCompat;
+import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -20,6 +22,10 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
             if (data.containsKey("source") && "webengage".equals(data.get("source"))) {
                 WebEngage.get().receive(data);
             }
+
+            else {
+                getFirebaseMessage(remoteMessage.getNotification().getTitle(),remoteMessage.getNotification().getBody());
+            }
 //            if(data.containsKey("deeplink")){
 //                String deeplinkVal= data.get("deeplink");
 //                if(deeplinkVal.equals("profile")){
@@ -29,6 +35,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                }
 //            }
         }
+    }
+    private  void getFirebaseMessage(String title, String body){
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"push")
+                .setSmallIcon(R.drawable.person_img)
+                .setContentTitle(title)
+                .setContentText(body)
+                .setAutoCancel(true);
+        NotificationManagerCompat managerCompat = NotificationManagerCompat.from(this);
+        managerCompat.notify(102,builder.build());
     }
     public void onNewToken(String s) {
         super.onNewToken(s);

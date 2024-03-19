@@ -40,6 +40,7 @@ dependencies {
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.webengage:android-sdk:4.+")
     implementation ("io.branch.sdk.android:library:5+")
+    implementation ("com.google.gms:google-services:4.3.15")
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
     implementation ("com.android.installreferrer:installreferrer:2.2")
     implementation ("com.github.bumptech.glide:glide:4.16.0")
