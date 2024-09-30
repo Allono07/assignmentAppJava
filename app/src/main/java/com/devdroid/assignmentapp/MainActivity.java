@@ -18,8 +18,12 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.netcore.android.Smartech;
 
 import org.json.JSONObject;
+
+import java.lang.ref.WeakReference;
+import java.util.HashMap;
 
 import io.branch.indexing.BranchUniversalObject;
 import io.branch.referral.Branch;
@@ -27,6 +31,7 @@ import io.branch.referral.BranchError;
 import io.branch.referral.util.ContentMetadata;
 import io.branch.referral.util.LinkProperties;
 import io.branch.referral.validators.IntegrationValidator;
+import io.hansel.hanselsdk.Hansel;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -37,6 +42,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+
+
         //setContentView(R.layout.activity_launcher);
         binding =ActivityMainBinding.inflate(getLayoutInflater());
 
@@ -44,7 +51,7 @@ public class MainActivity extends AppCompatActivity {
 
         String androidId = Settings.Secure.getString(getApplicationContext().getContentResolver(),
                 Settings.Secure.ANDROID_ID);
-
+       // Smartech.getInstance(new WeakReference<>(getApplicationContext())).setUserIdentity("TestAllen");
         // Now you can use the androidId variable which holds the Android ID
         Log.d("Android ID", androidId);
 
@@ -74,14 +81,24 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onSuccess(AuthResult authResult) {
                         progressDialog.cancel();
-                        Toast.makeText(MainActivity.this, "login Successful", Toast.LENGTH_SHORT).show();
-                        startActivity(new Intent(MainActivity.this,DashboardActivity.class));
-                    }
+                         }
                 }).addOnFailureListener(new OnFailureListener(){
                     @Override
                     public void onFailure(@NonNull Exception e) {
                         progressDialog.cancel();
                     Toast.makeText(MainActivity.this, e.getMessage(), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(MainActivity.this, "login Successful", Toast.LENGTH_SHORT).show();
+                      //  Smartech.getInstance(new WeakReference<>(getApplicationContext())).login("TestAllen");
+                        HashMap<String, Object> payload = new HashMap<>();
+                        payload.put("FIRST NAME", "Allen");
+                        payload.put("LAST NAME", "Thomson");
+                        payload.put("AGE", 23);
+                        payload.put("EMAIL","allen.thomson@netcorecloud.com");
+                        payload.put("MOBILE","8129445708");
+                     //   Hansel.getUser().setUserId("AllenTestHansel");
+                        Smartech.getInstance(new WeakReference<>(getApplicationContext())).updateUserProfile(payload);
+                        startActivity(new Intent(MainActivity.this,DashboardActivity.class));
+
                     }
                 });
     }

@@ -52,6 +52,24 @@
         android:id="@+id/productRecyler"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
+    <View
+        android:text="Hello world"
+        android:textColor="@color/black"
+        android:id="@+id/invisibleView"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:visibility="visible">
+
+        <TextView
+            android:text="Hello world"
+            android:textColor="@color/black"
+            android:id="@+id/invisibleTextView"/>
+
+
+    </View>
+
+
+
     <com.webengage.personalization.WEInlineView
         android:layout_width="match_parent"
         android:layout_height="200dp"

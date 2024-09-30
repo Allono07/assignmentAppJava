@@ -3,6 +3,7 @@ plugins {
     id("com.google.gms.google-services")
 }
 
+
 android {
     namespace = "com.devdroid.assignmentapp"
     compileSdk = 34
@@ -10,7 +11,7 @@ android {
     defaultConfig {
         applicationId = "com.devdroid.assignmentapp"
         minSdk = 28
-        targetSdk = 34
+        targetSdk = 35
         versionCode = 1
         versionName = "1.0"
 
@@ -30,13 +31,19 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
 }
 
+
 dependencies {
+    implementation("com.netcore.android:smartech-nudges:10.2.3")
+    implementation("com.netcore.android:smartech-appinbox:3.5.0")
+    implementation ("androidx.work:work-runtime:2.7.0")
+    implementation("com.netcore.android:smartech-sdk:3.5.5")
     implementation ("com.android.volley:volley:1.2.1")
     implementation ("com.webengage:android-sdk:4.+")
     implementation ("io.branch.sdk.android:library:5+")
@@ -49,7 +56,7 @@ dependencies {
     // Required if your app is in the Google Play Store (tip: avoid using bundled play services libs):
     implementation ("com.google.android.gms:play-services-ads-identifier:18.0.1")
     implementation ("com.webengage:we-personalization:1.1.3")
-
+    implementation ("com.netcore.android:smartech-push:3.5.2")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation("com.google.android.material:material:1.11.0")
     implementation("androidx.constraintlayout:constraintlayout:2.1.4")
@@ -62,4 +69,5 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
 }

@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "20732963684",
-    "project_id": "assignmentapp0707",
-    "storage_bucket": "assignmentapp0707.appspot.com"
+    "project_number": "73932714004",
+    "project_id": "android-project-ecomapp",
+    "storage_bucket": "android-project-ecomapp.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:20732963684:android:39f3bd20d2f46beab76871",
+        "mobilesdk_app_id": "1:73932714004:android:a138074fcca3900afbf701",
         "android_client_info": {
           "package_name": "com.devdroid.assignmentapp"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyBGVp6Bkchj7AQGY0OTDyEBoe54Fr-Ej-g"
+          "current_key": "AIzaSyClxf2qVKBKu2VuSF5nz2H0cfi07ncFXmw"
         }
       ],
       "services": {

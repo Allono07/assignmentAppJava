@@ -4,6 +4,8 @@ import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
 
 import android.app.Application;
 import android.content.Intent;
+import android.content.IntentFilter;
+import android.os.Build;
 import android.util.Log;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,10 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.Constants;
 import com.google.firebase.messaging.FirebaseMessaging;
+import com.netcore.android.Smartech;
+import com.netcore.android.logger.SMTDebugLevel;
+import com.netcore.android.smartechappinbox.SmartechAppInbox;
+import com.netcore.android.smartechpush.SmartPush;
 import com.webengage.personalization.WEPersonalization;
 import com.webengage.sdk.android.WebEngage;
 import com.webengage.sdk.android.WebEngageActivityLifeCycleCallbacks;
@@ -23,17 +29,45 @@ import android.content.Context;
 import com.webengage.sdk.android.actions.render.PushNotificationData;
 
 
+import java.lang.ref.WeakReference;
 
 import io.branch.referral.Branch;
 
  public class MainApplication extends Application implements PushNotificationCallbacks{
 
-    public void onCreate() {
+  //   private Context context;
+
+  //   public MainApplication(Context context) {
+      //   this.context = context;
+     //  }
+
+     public void onCreate() {
         super.onCreate();
+         Smartech.getInstance(new WeakReference<>(getApplicationContext())).initializeSdk(this);
+        //Smartech.getInstance(new WeakReference<>(context)).initializeSdk(this);
         registerActivityLifecycleCallbacks(new WebEngageActivityLifeCycleCallbacks(this, new WebEngageConfig.Builder().setWebEngageKey("~1341056cd").setDebugMode(true).build()));
      //   WebEngage.registerPushNotificationCallback(new PushNotificationCallbacksImpl());
+
+         Smartech smartech = Smartech.getInstance(new WeakReference<>(this.getApplicationContext()));
+         SmartechAppInbox smartechAppInbox = SmartechAppInbox.getInstance(new WeakReference<>(getApplicationContext()));
+         smartechAppInbox.displayAppInbox(getApplicationContext());
+         smartech.setDebugLevel(SMTDebugLevel.Level.DEBUG);
         WebEngage.registerPushNotificationCallback(this);
         WEPersonalization.Companion.get().init();
+         Smartech.getInstance(new WeakReference<>(getApplicationContext())).trackAppInstallUpdateBySmartech();
+         DeeplinkReceiver deeplinkReceiver = new DeeplinkReceiver();
+         IntentFilter filter = new IntentFilter("com.smartech.EVENT_PN_INBOX_CLICK");
+         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.UPSIDE_DOWN_CAKE) {
+             getApplicationContext().registerReceiver(deeplinkReceiver, filter, Context.RECEIVER_EXPORTED);
+         } else {
+             getApplicationContext().registerReceiver(deeplinkReceiver, filter);
+         }
+         try {
+             SmartPush smartPush = SmartPush.getInstance(new WeakReference<>(getApplicationContext()));
+             smartPush.fetchAlreadyGeneratedTokenFromFCM();
+         } catch (Exception e) {
+             Log.e(TAG, "Fetching FCM token failed.");
+         }
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             try {
                 String token = task.getResult();

@@ -10,6 +10,7 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
+        maven { url = uri("https://artifacts.netcore.co.in/artifactory/android") }
     }
 }
 
