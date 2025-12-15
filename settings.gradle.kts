@@ -3,6 +3,7 @@ pluginManagement {
         google()
         mavenCentral()
         gradlePluginPortal()
+        maven { url = uri("https://jitpack.io") }
     }
 }
 dependencyResolutionManagement {
@@ -11,9 +12,12 @@ dependencyResolutionManagement {
         google()
         mavenCentral()
         maven { url = uri("https://artifacts.netcore.co.in/artifactory/android") }
+        maven { url = uri("https://jitpack.io") }
     }
 }
 
 rootProject.name = "assignmentApp"
 include(":app")
- 
+
+
+//include(":NetcoreSDKCapturer")

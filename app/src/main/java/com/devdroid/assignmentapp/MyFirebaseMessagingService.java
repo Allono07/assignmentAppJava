@@ -15,24 +15,26 @@ import com.webengage.sdk.android.WebEngage;
 
 import java.lang.ref.WeakReference;
 import java.util.Map;
+import java.util.Objects;
 
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         boolean isPnHandledBySmartech = true;
+
+        Log.d("Push Notification Payload",remoteMessage.toString());
+        Log.d("Push Notification Payload Data",remoteMessage.getData().toString());
+//        Log.d("Push Notification Payload Raw Data", remoteMessage.getRawData().toString());
         Map<String, String> data = remoteMessage.getData();
         Log.d("payload",data.toString());
-        if (data != null) {
-            if (data.containsKey("source") && "webengage".equals(data.get("source"))) {
-                WebEngage.get().receive(data);
-            }
-            else if(data.containsKey("smtSrc")){
-                SmartPush.getInstance(new WeakReference<Context>(getApplicationContext())).handleRemotePushNotification(remoteMessage);
-            }
-            else {
-                getFirebaseMessage(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
-            }
+        if (data.containsKey("source") && "webengage".equals(data.get("source"))) {
+            WebEngage.get().receive(data);
+        } else if (data.containsKey("smtSrc")) {
+            SmartPush.getInstance(new WeakReference<Context>(getApplicationContext())).handleRemotePushNotification(remoteMessage);
+        } else {
+            getFirebaseMessage(remoteMessage.getNotification().getTitle(), remoteMessage.getNotification().getBody());
+        }
 //            if(data.containsKey("deeplink")){
 //                String deeplinkVal= data.get("deeplink");
 //                if(deeplinkVal.equals("profile")){
@@ -41,7 +43,6 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 //                    startActivity(intent);
 //                }
 //            }
-        }
     }
     private  void getFirebaseMessage(String title, String body){
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this,"push")

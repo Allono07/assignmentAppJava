@@ -17,6 +17,8 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserProfileChangeRequest;
 
+import io.hansel.hanselsdk.Hansel;
+
 public class SignupActivity extends AppCompatActivity {
     ActivitySignupBinding binding;
     @Override
@@ -25,6 +27,7 @@ public class SignupActivity extends AppCompatActivity {
         binding=ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        Hansel.pairTestDevice(getIntent().getDataString());
         binding.goToLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

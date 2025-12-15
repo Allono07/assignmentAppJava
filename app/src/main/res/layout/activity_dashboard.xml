@@ -1,17 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".DashboardActivity"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:fitsSystemWindows="true"
+    tools:context=".DashboardActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/myToolbar"
-        android:background="#080D78"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="#080D78">
+
         <RelativeLayout
 
             android:layout_width="match_parent"
@@ -20,13 +23,13 @@
 
             <ImageView
                 android:id="@+id/person"
-                android:src="@drawable/person_img"
-                app:tint="@color/white"
-                android:layout_centerVertical="true"
-
-                android:layout_alignParentLeft="true"
                 android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                android:layout_height="30dp"
+                android:layout_alignParentLeft="true"
+
+                android:layout_centerVertical="true"
+                android:src="@drawable/person_img"
+                app:tint="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -36,43 +39,42 @@
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
+
             <ImageView
                 android:id="@+id/cart"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
                 android:layout_marginRight="16dp"
                 android:src="@drawable/baseline_add_shopping_cart_24"
-                app:tint="@color/white"
-                android:layout_centerVertical="true"
-                android:layout_alignParentRight="true"
-                android:layout_width="30dp"
-                android:layout_height="30dp"/>
+                app:tint="@color/white" />
         </RelativeLayout>
     </androidx.appcompat.widget.Toolbar>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/productRecyler"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
-    <View
-        android:text="Hello world"
-        android:textColor="@color/black"
+        android:layout_height="wrap_content" />
+
+    <LinearLayout
         android:id="@+id/invisibleView"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:visibility="visible">
+        android:visibility="visible"
+        android:orientation="vertical">
 
         <TextView
+            android:id="@+id/invisibleTextView"
             android:text="Hello world"
             android:textColor="@color/black"
-            android:id="@+id/invisibleTextView"/>
-
-
-    </View>
-
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
 
     <com.webengage.personalization.WEInlineView
+        android:id="@+id/sad1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
-        app:shouldCache="false"
-        android:id="@+id/sad1"/>
+        app:shouldCache="false" />
 </LinearLayout>

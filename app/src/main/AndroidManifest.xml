@@ -1,148 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools">
-    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+xmlns:tools="http://schemas.android.com/tools">
+
+<uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"/>
+    <!-- Needed only if you want background location -->
+    <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION"/>
+    <!-- Optional for better accuracy -->
+    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS"/>
 
 
     <queries>
-        <intent>
-            <action android:name="android.intent.action.SEND" />
+    <intent>
+        <action android:name="android.intent.action.SEND" />
 
-            <data android:mimeType="text/plain" />
-        </intent>
-    </queries>
+        <data android:mimeType="text/plain" />
+    </intent>
+</queries>
 
-    <application
-        android:name=".MainApplication"
-        android:allowBackup="true"
-        android:dataExtractionRules="@xml/data_extraction_rules"
-        android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
-        android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
-        android:supportsRtl="true"
-        android:theme="@style/Theme.AssignmentApp"
-        tools:targetApi="31">
-        <meta-data android:name="com.webengage.sdk.android.environment" android:value="us" />
-        <meta-data
-            android:name="SMT_APP_ID"
-            android:value="38f37c444a1eab297a163435602886d8" />
-        <meta-data
-            android:name="HANSEL_APP_ID"
-            android:value="KMRBYZMQS2XXX1OBID8GFORVH" />
+<application
+    android:name=".MainApplication"
+    android:usesCleartextTraffic="true"
+    android:allowBackup="true"
+    android:dataExtractionRules="@xml/data_extraction_rules"
+    android:fullBackupContent="@xml/backup_rules"
+    android:icon="@mipmap/ic_launcher"
+    android:label="@string/app_name"
+    android:roundIcon="@mipmap/ic_launcher_round"
+    android:supportsRtl="true"
+    android:theme="@style/Theme.AssignmentApp"
+    tools:targetApi="31">
+    <meta-data
+        android:name="com.webengage.sdk.android.environment"
+        android:value="us" />
+    <meta-data
+        android:name="SMT_APP_ID"
+        android:value="3e3e838020149ee53689841da279c341" />
+    <meta-data
+        android:name="HANSEL_APP_ID"
+        android:value="5WMK2OV9P4N20QFDD2ZM134HR" />
 
-        <meta-data
-            android:name="HANSEL_APP_KEY"
-            android:value="ZUAZSYE2JWSVAG4NWSSGDN9F3UODHH2ZCBSBJOPI27GIZEN1AS" />
-        <service android:exported="false"
-            android:name=".MyFirebaseMessagingService">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
-            </intent-filter>
+    <meta-data
+        android:name="HANSEL_APP_KEY"
+        android:value="GKGP78UKZQOSVZUBU6EVWYP636EB1D84LFA4B7R24C1X88R46P" />
 
-        </service>
+    <meta-data
+        android:name="SMT_IS_AUTO_ASK_NOTIFICATION_PERMISSION"
+        android:value="0" />
 
-        <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
-            android:name=".OrderPlacingActivity"
-            android:exported="false" />
-        <activity
-            android:name=".CartActivity"
-            android:exported="false">
-<!--            <intent-filter android:autoVerify="true">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+    <meta-data
+        android:name="SMT_IS_AUTO_FETCHED_LOCATION"
+        android:value="1" />
+    <meta-data
+        android:name="SMT_OPT_IN_2_URL"
+        android:value="https://cdnt.netcoresmartech.com/smartech-app-sdk/notification-optin/prod/pn-permission-prompt-01.html" />
+    <meta-data
+        android:name="SMT_OPT_IN_1_URL"
+        android:value="https://cdnt.netcoresmartech.com/smartech-app-sdk/notification-optin/prod/pn-permission-prompt-02.html" />
+    <meta-data
+        android:name="SMT_OPT_IN_1_INTERVAL"
+        android:value="2" />
+    <meta-data
+        android:name="SMT_OPT_IN_2_INTERVAL"
+        android:value="7" />
 
-<!--                <data android:scheme="https" />-->
-<!--                <data android:host="fa4i7.app.link" />-->
-<!--                <data android:pathPattern="/cTBIf57whHb" />-->
-<!--            </intent-filter>-->
-<!--            <intent-filter android:autoVerify="true">-->
-<!--                <action android:name="android.intent.action.VIEW" />-->
 
-<!--                <category android:name="android.intent.category.DEFAULT" />-->
-<!--                <category android:name="android.intent.category.BROWSABLE" />-->
+    <receiver
+        android:name="com.netcore.android.geofence.SMTGeofenceBootReceiver"
+        android:directBootAware="false"
+        android:enabled="true"
+        android:exported="false"
+        android:permission="android.permission.RECEIVE_BOOT_COMPLETED">
 
-<!--                <data android:scheme="https" />-->
-<!--                <data android:host="fa4i7-alternate.app.link" />-->
-<!--                <data android:pathPattern="/cTBIf57whHb" />-->
-<!--            </intent-filter>-->
-        </activity>
-        <activity
-            android:name=".DetailActivity"
-            android:exported="false" />
-        <activity
-            android:name=".DashboardActivity"
-            android:exported="true"
-            android:theme="@style/NoAction"
-            tools:ignore="AppLinkUrlError">
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+        <intent-filter>
+            <action android:name="android.intent.action.LOCKED_BOOT_COMPLETED" />
+            <action android:name="android.intent.action.BOOT_COMPLETED" />
+            <action android:name="android.intent.action.TIME_SET" />
+            <action android:name="android.intent.action.TIMEZONE_CHANGED" />
+        </intent-filter>
+    </receiver>
 
-                <data android:scheme="myunifi"/>
-            </intent-filter>
-        </activity>
-        <activity
-            android:name=".SignupActivity"
-            android:exported="false" />
-        <activity
-            android:name=".MainActivity"
-            android:exported="true"
-            android:launchMode="singleTask">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+    <service
+        android:exported="false"
+        android:name=".MyFirebaseMessagingService">
+        <intent-filter>
+            <action android:name="com.google.firebase.MESSAGING_EVENT" />
+        </intent-filter>
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
+    </service>
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+    <activity
+        android:name=".ProfileActivity"
+        android:exported="false">
 
-                <data android:scheme="myassignmentandroid" />
-                <data android:host="open" />
-            </intent-filter>
+    </activity>
+    <activity
+        android:name=".OrderPlacingActivity"
+        android:exported="false" />
+    <activity
+        android:name=".CartActivity"
+        android:exported="false">
+        <!--            <intent-filter android:autoVerify="true">-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
 
-            <!-- Branch App Links - Test App -->
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+        <!--                <data android:scheme="https" />-->
+        <!--                <data android:host="fa4i7.app.link" />-->
+        <!--                <data android:pathPattern="/cTBIf57whHb" />-->
+        <!--            </intent-filter>-->
+        <!--            <intent-filter android:autoVerify="true">-->
+        <!--                <action android:name="android.intent.action.VIEW" />-->
 
-                <data android:scheme="https" />
-                <data android:host="fa4i7.app.link" />
-<!--                <data android:pathPattern="/fcqJrJHUbHb" />-->
-            </intent-filter>
-            <intent-filter android:autoVerify="true">
-                <action android:name="android.intent.action.VIEW" />
+        <!--                <category android:name="android.intent.category.DEFAULT" />-->
+        <!--                <category android:name="android.intent.category.BROWSABLE" />-->
 
-                <category android:name="android.intent.category.DEFAULT" />
-                <category android:name="android.intent.category.BROWSABLE" />
+        <!--                <data android:scheme="https" />-->
+        <!--                <data android:host="fa4i7-alternate.app.link" />-->
+        <!--                <data android:pathPattern="/cTBIf57whHb" />-->
+        <!--            </intent-filter>-->
+    </activity>
+    <activity
+        android:name=".DetailActivity"
+        android:exported="false" />
+    <activity
 
-                <data android:scheme="https" />
-                <data android:host="fa4i7-alternate.app.link" />
-<!--                <data android:pathPattern="/fcqJrJHUbHb" />-->
-            </intent-filter>
-        </activity>
+        android:name=".DashboardActivity"
+        android:exported="true"
+        android:theme="@style/NoAction"
+        tools:ignore="AppLinkUrlError">
 
-        <meta-data
-            android:name="io.branch.sdk.BranchKey"
-            android:value="key_live_ftpwWzSyD6GNxqgtoelAxkoiCxm9Ap5V" /> <!-- REPLACE `BranchKey.test` with the value from your Branch Dashboard -->
-        <meta-data
-            android:name="io.branch.sdk.BranchKey.test"
-            android:value="key_test_jrdy8xLzC9JGwqethphqDmbbBwb1Bg87" /> <!-- Set to `true` to use `BranchKey.test` -->
-        <meta-data
-            android:name="io.branch.sdk.TestMode"
-            android:value="false" />
-    </application>
+
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+            <data android:scheme="savari"
+                android:host="smartech_sdk_td" />
+        </intent-filter>
+    </activity>
+    <activity
+        android:name=".SignupActivity"
+        android:exported="true"
+        tools:ignore="AppLinkUrlError">
+
+
+    <intent-filter>
+        <action android:name="android.intent.action.VIEW" />
+        <category android:name="android.intent.category.DEFAULT" />
+        <category android:name="android.intent.category.BROWSABLE" />
+        <data android:scheme="allentest"
+            />
+    </intent-filter>
+    </activity>
+
+    <activity
+        android:name=".MainActivity"
+        android:exported="true"
+        android:launchMode="singleTask"
+        android:taskAffinity="">
+
+
+
+
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        <intent-filter>
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="myassignmentandroid" />
+            <data android:host="open" />
+        </intent-filter>
+
+        <!-- Branch App Links - Test App -->
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="https" />
+            <data android:host="fa4i7.app.link" />
+            <!--                <data android:pathPattern="/fcqJrJHUbHb" />-->
+        </intent-filter>
+        <intent-filter android:autoVerify="true">
+            <action android:name="android.intent.action.VIEW" />
+
+            <category android:name="android.intent.category.DEFAULT" />
+            <category android:name="android.intent.category.BROWSABLE" />
+
+            <data android:scheme="https" />
+            <data android:host="fa4i7-alternate.app.link" />
+            <!--                <data android:pathPattern="/fcqJrJHUbHb" />-->
+        </intent-filter>
+    </activity>
+
+    <meta-data
+        android:name="io.branch.sdk.BranchKey"
+        android:value="key_live_ftpwWzSyD6GNxqgtoelAxkoiCxm9Ap5V" /> <!-- REPLACE `BranchKey.test` with the value from your Branch Dashboard -->
+    <meta-data
+        android:name="io.branch.sdk.BranchKey.test"
+        android:value="key_test_jrdy8xLzC9JGwqethphqDmbbBwb1Bg87" /> <!-- Set to `true` to use `BranchKey.test` -->
+    <meta-data
+        android:name="io.branch.sdk.TestMode"
+        android:value="false" />
+</application>
 
 </manifest>
